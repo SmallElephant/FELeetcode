@@ -38,9 +38,14 @@ int** generate(int numRows, int** columnSizes) {
 int main(int argc, const char * argv[]) {
     // insert code here...
     printf("Hello, World!\n");
-    int columns[5][1] = {{0}, {0}, {0}, {0}, {0}};
-    int **columnSizes = columns;
-    int **nums = generate(5, columnSizes);
-    
+    int **columnSizes = (int **)malloc(sizeof(int) * 1);
+    int **nums = generate(6, columnSizes);
+    for (int i = 0; i < 6; i++) {
+        printf("第%d行",(i + 1));
+        for (int j = 0; j <= i; j++) {
+            printf("    %d",nums[i][j]);
+        }
+        printf("\n");
+    }
     return 0;
 }
