@@ -9,33 +9,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int* getRow(int rowIndex, int* returnSize) {
-    if (rowIndex < 0) {
-        return NULL;
+int** generate(int numRows, int** columnSizes) {
+    if (!columnSizes) {
+        return 0;
     }
-    int *res = (int *)malloc(sizeof(int) * (rowIndex + 1));
-    for (int i = 0; i <= rowIndex; i++) {
-        for (int j = i; j >= 0; j--) {
+    if (numRows == 0) {
+        return 0;
+    }
+    int **res = (int **)malloc(sizeof(int *) * numRows);
+    int *columns = (int *)malloc(sizeof(int) * numRows);
+    for (int i = 0; i < numRows; i++) {
+        res[i] = (int *)malloc(sizeof(int) * numRows);
+        columns[i] = i + 1;
+        for (int j = 0; j <= i; j++) {
             if (j == 0 || j == i) {
-                res[j] = 1;
+                res[i][j] = 1;
             } else {
-                res[j] = res[j - 1] + res[j];
+                res[i][j] = res[i - 1][j] + res[i - 1][j - 1];
             }
         }
     }
-    *returnSize = rowIndex + 1;
+    *columnSizes = columns;
     return res;
 }
 
 int main(int argc, const char * argv[]) {
     // insert code here...
     printf("Hello, World!\n");
-    int row = 4;
-    int *size = malloc(sizeof(int) * row);
-    int *res = getRow(row - 1, size);
-    for (int i = 0; i < row; i++) {
-        printf("%d ",res[i]);
-    }
-    printf("\n");
     return 0;
 }
